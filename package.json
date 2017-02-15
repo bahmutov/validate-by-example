@@ -69,8 +69,9 @@
     "mocha": "3.2.0",
     "nsp": "2.6.2",
     "pre-git": "3.13.0",
-    "standard": "8.6.0",
-    "semantic-release": "^6.3.2"
+    "semantic-release": "^6.3.2",
+    "snap-shot": "2.10.0",
+    "standard": "8.6.0"
   },
   "dependencies": {
     "check-more-types": "2.23.0",

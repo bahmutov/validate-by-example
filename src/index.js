@@ -1,9 +1,9 @@
 'use strict'
 
+const R = require('ramda')
 const is = require('check-more-types')
 
 function setAllRequired (o) {
-  const R = require('ramda')
   o.properties = R.mapObjIndexed((value, key) => {
     if (value.type === 'object') {
       value = setAllRequired(value)
@@ -25,28 +25,22 @@ function isSchema (s) {
     is.unemptyString(s['$schema'])
 }
 
-module.exports = {
-  train,
-  isSchema
+function validate (schema, o) {
+  const validator = require('is-my-json-valid')
+  const options = {
+    greedy: true
+  }
+  const validate = validator(schema, options)
+  // should we return data.Either?
+  const result = validate(o)
+  return {
+    valid: result,
+    errors: R.clone(validate.errors)
+  }
 }
 
-// console.log(schema)
-
-// // validate using schema
-// const validator = require('is-my-json-valid')
-// const validate = validator(
-//   schema,
-//   {
-//     greedy: true
-//   }
-// )
-// const p = {
-//   name: 'stranger',
-//   age: 'twenty',
-//   additional: 'some new property',
-//   lives: {
-//     state: 'MA'
-//   }
-// }
-// console.log('is p valid?', validate(p))
-// console.log('errors', validate.errors)
+module.exports = {
+  train,
+  isSchema,
+  validate: R.curry(validate)
+}
