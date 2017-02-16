@@ -49,4 +49,20 @@ describe('validate-by-example', () => {
     const result = validate(schema, p)
     snapshot(result)
   })
+
+  it('validates several objects', () => {
+    const p = {
+      name: 'stranger',
+      age: 'twenty',
+      additional: 'some new property',
+      lives: {
+        state: 'MA'
+      }
+    }
+    const schema = train(person)
+    const result = validate(schema, p)
+    snapshot(result)
+    const result2 = validate(schema, person)
+    snapshot(result2) // should have no errors
+  })
 })

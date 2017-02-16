@@ -29,3 +29,34 @@ exports['passes the original object 1'] = {
   "errors": null
 }
 
+exports['validates several objects 1'] = {
+  "valid": false,
+  "errors": [
+    {
+      "field": "data",
+      "message": "has additional properties"
+    },
+    {
+      "field": "data.age",
+      "message": "is the wrong type"
+    },
+    {
+      "field": "data.married",
+      "message": "is required"
+    },
+    {
+      "field": "data.lives",
+      "message": "has additional properties"
+    },
+    {
+      "field": "data.lives.city",
+      "message": "is required"
+    }
+  ]
+}
+
+exports['validates several objects 2'] = {
+  "valid": true,
+  "errors": null
+}
+
