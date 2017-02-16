@@ -8,6 +8,85 @@
 [![semantic-release][semantic-image] ][semantic-url]
 [![js-standard-style][standard-image]][standard-url]
 
+## Goal
+
+Derive [json schema][json-schema] from one object and use it to verify every
+object after that. Uses [generate-schema][generate-schema] and
+[is-my-json-valid][is-my-json-valid].
+
+[json-schema]: http://json-schema.org/
+[generate-schema]: https://github.com/nijikokun/generate-schema
+[is-my-json-valid]: https://github.com/mafintosh/is-my-json-valid
+
+## How to use
+
+Install with `npm install --save validate-by-example`
+
+In your code first train on an object (gives you a schema) and then validate
+an object.
+
+```js
+const {train, validate} = require('validate-by-example')
+const aPerson = {
+  name: 'gleb',
+  age: 37,
+  married: true,
+  lives: {
+    city: 'Boston'
+  }
+}
+const schema = train(person)
+// now use schema to validate
+const someone = {
+  name: 'stranger',
+  age: 'twenty',
+  additional: 'some new property',
+  lives: {
+    state: 'MA'
+  }
+}
+const result = validate(schema, someone)
+// result is an object
+// if everything goes well result.valid will be true
+// otherwise
+if (!result.valid) {
+  console.log(result.errors)
+}
+```
+
+The above example prints a few errors, because every property is required,
+and no additional properties is allowed.
+
+```json
+[
+  {
+    "field": "data",
+    "message": "has additional properties"
+  },
+  {
+    "field": "data.age",
+    "message": "is the wrong type"
+  },
+  {
+    "field": "data.married",
+    "message": "is required"
+  },
+  {
+    "field": "data.lives",
+    "message": "has additional properties"
+  },
+  {
+    "field": "data.lives.city",
+    "message": "is required"
+  }
+]
+```
+
+For error format, see
+[is-my-json-valid](https://github.com/mafintosh/is-my-json-valid#error-messages)
+
+See more in [tests](src/validate-by-example-spec.js)
+
 ## JSON schema
 
 Related projects that can derive JSON schema from an object
