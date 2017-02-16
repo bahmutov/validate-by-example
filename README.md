@@ -87,6 +87,32 @@ For error format, see
 
 See more in [tests](src/validate-by-example-spec.js)
 
+## Additional formats
+
+You can specify additional [JSON schema v4 format][formats] for each property.
+
+```js
+const user = {
+  email: 'foo@bar.com'
+}
+const schema = train(user)
+schema.properties.email.format = 'email'
+validate(schema, {email: 'unknown'})
+/*
+{
+  "valid": false,
+  "errors": [
+    {
+      "field": "data.email",
+      "message": "must be email format"
+    }
+  ]
+}
+*/
+```
+
+[formats]: http://json-schema.org/latest/json-schema-validation.html#rfc.section.7.3
+
 ## JSON schema
 
 Related projects that can derive JSON schema from an object

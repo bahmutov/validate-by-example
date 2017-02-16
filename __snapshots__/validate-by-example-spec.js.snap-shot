@@ -1,3 +1,28 @@
+exports['allows unknown email 1'] = {
+  "valid": true,
+  "errors": null
+}
+
+exports['validate email (valid) 1'] = {
+  "valid": true,
+  "errors": null
+}
+
+exports['validate email (invalid) 1'] = {
+  "valid": false,
+  "errors": [
+    {
+      "field": "data.email",
+      "message": "must be email format"
+    }
+  ]
+}
+
+exports['passes the original object 1'] = {
+  "valid": true,
+  "errors": null
+}
+
 exports['validates another object 1'] = {
   "valid": false,
   "errors": [
@@ -22,11 +47,6 @@ exports['validates another object 1'] = {
       "message": "is required"
     }
   ]
-}
-
-exports['passes the original object 1'] = {
-  "valid": true,
-  "errors": null
 }
 
 exports['validates several objects 1'] = {
