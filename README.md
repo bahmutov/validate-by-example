@@ -92,13 +92,32 @@ See more in [tests](src/validate-by-example-spec.js)
 You can specify additional [JSON schema v4 format][formats] for each property.
 
 ```js
+const {train, validate} = require('validate-by-example')
+const user = {
+  email: 'foo@bar.com'
+}
+const schema = train(user, {email: 'email'})
+/*
+  schema.properties.email will be
+  {type: 'string', required: true, format: 'email'}
+*/
+validate({email: 'unknown'})
+```
+
+This is equivalent to
+
+```js
 const user = {
   email: 'foo@bar.com'
 }
 const schema = train(user)
 schema.properties.email.format = 'email'
 validate(schema, {email: 'unknown'})
-/*
+```
+
+and will produce the following error
+
+```json
 {
   "valid": false,
   "errors": [
@@ -108,7 +127,6 @@ validate(schema, {email: 'unknown'})
     }
   ]
 }
-*/
 ```
 
 [formats]: http://json-schema.org/latest/json-schema-validation.html#rfc.section.7.3

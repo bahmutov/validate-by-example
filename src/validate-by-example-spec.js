@@ -91,4 +91,11 @@ describe('custom schema format', () => {
     schema.properties.email.format = 'email'
     snapshot(validate(schema, invalid))
   })
+
+  it('can be set in train', () => {
+    const schema = train(user, {email: 'email'})
+    const result = validate(schema, invalid)
+    la(!result.valid, result)
+    snapshot(result)
+  })
 })

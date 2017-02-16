@@ -1,6 +1,7 @@
 'use strict'
 
 const R = require('ramda')
+const la = require('lazy-ass')
 const is = require('check-more-types')
 
 function setAllRequired (o) {
@@ -15,9 +16,21 @@ function setAllRequired (o) {
   return o
 }
 
-function train (o) {
+function setFormats (schema, formats) {
+  la(is.object(formats), 'expected formats object', formats)
+  Object.keys(formats).forEach(key => {
+    schema.properties[key].format = formats[key]
+  })
+  return schema
+}
+
+function train (o, formats) {
   const GenerateSchema = require('generate-schema')
-  return setAllRequired(GenerateSchema.json(o))
+  const schema = setAllRequired(GenerateSchema.json(o))
+  if (formats) {
+    return setFormats(schema, formats)
+  }
+  return schema
 }
 
 function isSchema (s) {

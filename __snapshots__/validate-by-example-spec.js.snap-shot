@@ -80,3 +80,13 @@ exports['validates several objects 2'] = {
   "errors": null
 }
 
+exports['can be set in train 1'] = {
+  "valid": false,
+  "errors": [
+    {
+      "field": "data.email",
+      "message": "must be email format"
+    }
+  ]
+}
+
