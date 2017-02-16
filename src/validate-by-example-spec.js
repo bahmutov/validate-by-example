@@ -66,6 +66,23 @@ describe('validate-by-example', () => {
   })
 })
 
+describe('infer schema format', () => {
+  const user = {
+    email: 'foo@bar.com'
+  }
+
+  it('user.email is email', () => {
+    const schema = train(user)
+    la(schema.properties.email.format === 'email', schema.properties)
+    snapshot(schema)
+  })
+
+  it('infers timestamps', () => {
+    const schema = train({created: '2017-02-16T15:30:28.370Z'})
+    snapshot(schema)
+  })
+})
+
 describe('custom schema format', () => {
   const user = {
     email: 'foo@bar.com'
@@ -77,6 +94,8 @@ describe('custom schema format', () => {
 
   it('allows unknown email', () => {
     const schema = train(user)
+    // it probably inferred that "email" property has format "email"
+    delete schema.properties.email.format
     snapshot(validate(schema, invalid))
   })
 

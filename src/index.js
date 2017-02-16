@@ -3,6 +3,8 @@
 const R = require('ramda')
 const la = require('lazy-ass')
 const is = require('check-more-types')
+const validator = require('is-my-json-valid')
+const findFormat = require('./find-format')
 
 function setAllRequired (o) {
   o.properties = R.mapObjIndexed((value, key) => {
@@ -24,9 +26,20 @@ function setFormats (schema, formats) {
   return schema
 }
 
+function discoverFormats (o, schema) {
+  Object.keys(schema.properties).forEach(key => {
+    const format = findFormat(o[key])
+    if (format) {
+      schema.properties[key].format = format
+    }
+  })
+  return schema
+}
+
 function train (o, formats) {
   const GenerateSchema = require('generate-schema')
   const schema = setAllRequired(GenerateSchema.json(o))
+  discoverFormats(o, schema)
   if (formats) {
     return setFormats(schema, formats)
   }
@@ -39,7 +52,6 @@ function isSchema (s) {
 }
 
 function validate (schema, o) {
-  const validator = require('is-my-json-valid')
   const options = {
     greedy: true
   }

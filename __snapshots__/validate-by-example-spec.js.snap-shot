@@ -90,3 +90,29 @@ exports['can be set in train 1'] = {
   ]
 }
 
+exports['user.email is email 1'] = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "required": true,
+      "format": "email"
+    }
+  },
+  "additionalProperties": false
+}
+
+exports['infers timestamps 1'] = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "created": {
+      "type": "string",
+      "required": true,
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}
+

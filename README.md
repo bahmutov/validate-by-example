@@ -87,9 +87,31 @@ For error format, see
 
 See more in [tests](src/validate-by-example-spec.js)
 
-## Additional formats
+## Inferring formats
 
-You can specify additional [JSON schema v4 format][formats] for each property.
+For the top level properties, the `train` function tries to infer
+specific [JSON schema v4 format][formats]. For example
+
+```js
+const {train} = require('validate-by-example')
+const schema = train({created: '2017-02-16T15:30:28.370Z'})
+/*
+  {
+    '$schema': 'http://json-schema.org/draft-04/schema#',
+    type: 'object',
+    properties: {
+      created: {
+        type: 'string', required: true, format: 'date-time'
+      }
+    },
+    additionalProperties: false
+  }
+*/
+```
+
+## Overriding formats
+
+You can specify [JSON schema v4 format][formats] for each property.
 
 ```js
 const {train, validate} = require('validate-by-example')
