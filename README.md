@@ -109,6 +109,9 @@ const schema = train({created: '2017-02-16T15:30:28.370Z'})
 */
 ```
 
+**Note** only hex RGB strings like `#ff0ff` or `#FF00FF` are inferred as
+`color` format.
+
 ## Overriding formats
 
 You can specify [JSON schema v4 format][formats] for each property.

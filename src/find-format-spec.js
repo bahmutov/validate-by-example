@@ -25,6 +25,11 @@ describe('find-format', () => {
     la(format === 'color', format)
   })
 
+  it('color uppercase', () => {
+    const format = findFormat('#FF00FF')
+    la(format === 'color', format)
+  })
+
   it('uri', () => {
     const format = findFormat('http://foo.com/nice/day')
     la(format === 'uri', format)

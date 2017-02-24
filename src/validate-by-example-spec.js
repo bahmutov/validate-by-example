@@ -119,12 +119,20 @@ describe('custom schema format', () => {
   })
 })
 
-describe.only('color vs text', () => {
+describe('color vs text', () => {
   const item = {
     name: 'this is a name', color: '#ff00ff'
   }
+  const todo = {
+    id: '82aa0796-7e6b-43fe-a777-fe300153137e'
+  }
   it('detects hex color', () => {
     const schema = train(item)
+    snapshot(schema)
+  })
+
+  it('does not detect uuid as color', () => {
+    const schema = train(todo)
     snapshot(schema)
   })
 })

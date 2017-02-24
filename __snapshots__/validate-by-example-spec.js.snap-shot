@@ -116,3 +116,32 @@ exports['infers timestamps 1'] = {
   "additionalProperties": false
 }
 
+exports['detects hex color 1'] = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true,
+      "format": "color"
+    }
+  },
+  "additionalProperties": false
+}
+
+exports['does not detect uuid as color 1'] = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "additionalProperties": false
+}
+
