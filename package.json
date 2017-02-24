@@ -68,9 +68,9 @@
     "license-checker": "8.0.3",
     "mocha": "3.2.0",
     "nsp": "2.6.2",
-    "pre-git": "3.13.0",
+    "pre-git": "3.14.0",
     "semantic-release": "^6.3.2",
-    "snap-shot": "2.10.0",
+    "snap-shot": "2.16.0",
     "standard": "8.6.0"
   },
   "dependencies": {

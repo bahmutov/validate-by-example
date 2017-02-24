@@ -118,3 +118,13 @@ describe('custom schema format', () => {
     snapshot(result)
   })
 })
+
+describe.only('color vs text', () => {
+  const item = {
+    name: 'this is a name', color: '#ff00ff'
+  }
+  it('detects hex color', () => {
+    const schema = train(item)
+    snapshot(schema)
+  })
+})
